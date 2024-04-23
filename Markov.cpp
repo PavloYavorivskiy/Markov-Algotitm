@@ -5,7 +5,8 @@ using namespace std;
 
 struct Rule {
     String from; 
-    String to;  
+    String to;
+    bool is_terminal;  
 };
 class Markov
 {
@@ -46,6 +47,7 @@ void add_ryadok(const String& newRyadok) {
         for (int i = 0; i < ruleCount; ++i) {
             if (Ryadok.bool_find(Ryadok, rules[i].from)) {
                 Ryadok.replace_first(Ryadok, rules[i].from, rules[i].to);
+                if(rules[i].is_terminal)break;
                 replacementMade = true;
             }
         }
@@ -60,13 +62,13 @@ void add_ryadok(const String& newRyadok) {
     }
 };
 int main() {
-    String word("101");
+    String word("100000");
     Markov markov;
 
-    // Add some rules
-    markov.add_rule({ "1", "0|" });
-    markov.add_rule({ "|0", "0||" });
-    markov.add_rule({ "0", "" });
+
+    markov.add_rule({ "1", "t" ,1});
+    markov.add_rule({ "0", "nt" ,0});
+    markov.add_rule({ "0", "nt" ,0});
 
     markov.add_ryadok(word);
     markov.program();
