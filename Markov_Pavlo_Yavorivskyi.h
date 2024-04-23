@@ -206,7 +206,8 @@ size_t find(const String& substr, size_t pos = 0) const {
 };
 struct Rule {
     String from; 
-    String to;  
+    String to;
+    bool is_terminal;  
 };
 class Markov
 {
@@ -247,6 +248,7 @@ void add_ryadok(const String& newRyadok) {
         for (int i = 0; i < ruleCount; ++i) {
             if (Ryadok.bool_find(Ryadok, rules[i].from)) {
                 Ryadok.replace_first(Ryadok, rules[i].from, rules[i].to);
+                if(rules[i].is_terminal)break;
                 replacementMade = true;
             }
         }
